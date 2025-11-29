@@ -1,0 +1,112 @@
+# file: .
+# owner: tsuneki
+# group: tsuneki
+user::rwx
+group::rwx
+other::r-x
+
+# file: dev
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+# file: bin
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+# file: bin/busybox
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+# file: vibexec.ko
+# owner: root
+# group: root
+user::rw-
+group::r--
+other::r--
+
+# file: usr
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+# file: usr/bin
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+# file: usr/sbin
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+# file: etc
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+# file: etc/inittab
+# owner: root
+# group: root
+user::rw-
+group::r--
+other::r--
+
+# file: etc/passwd
+# owner: root
+# group: root
+user::rw-
+group::r--
+other::r--
+
+# file: etc/init.d
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+# file: etc/init.d/rcS
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+# file: etc/group
+# owner: root
+# group: root
+user::rw-
+group::r--
+other::r--
+
+# file: etc/motd
+# owner: root
+# group: root
+user::rw-
+group::r--
+other::r--
+
+# file: sbin
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
