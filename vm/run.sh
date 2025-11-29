@@ -1,0 +1,11 @@
+qemu-system-x86_64 \
+  -gdb tcp::12345 \
+  -m 128M \
+  -kernel ./bzImage \
+  -initrd ./archive.cpio \
+  -append "console=ttyS0 quiet root=/dev/sda rw oops=panic panic=1 panic_on_warn=1 kaslr pti=on" \
+  -monitor /dev/null \
+  -nographic \
+  -cpu kvm64,+smep,+smap \
+  -no-reboot \
+  -snapshot
