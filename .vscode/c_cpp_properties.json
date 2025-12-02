@@ -1,0 +1,36 @@
+{
+    "configurations": [
+        {
+            "name": "Linux Kernel Module",
+            "includePath": [
+                "${workspaceFolder}/linux-6.15.6/include",
+                "${workspaceFolder}/linux-6.15.6/arch/x86/include",
+                "${workspaceFolder}/linux-6.15.6/arch/x86/include/generated",
+                "${workspaceFolder}/linux-6.15.6/include/generated",
+                "${workspaceFolder}/kmemcache-1024",
+                "${workspaceFolder}/poc"
+            ],
+            "defines": [
+                "__KERNEL__",
+                "MODULE",
+                "CONFIG_X86_64",
+                "KBUILD_MODNAME=\"tsune\""
+            ],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/linux-6.15.6/include",
+                    "${workspaceFolder}/linux-6.15.6/arch/x86/include",
+                    "${workspaceFolder}/linux-6.15.6/mm",
+                    "${workspaceFolder}/kmemcache-1024",
+                    "${workspaceFolder}/poc"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ],
+    "version": 4
+}

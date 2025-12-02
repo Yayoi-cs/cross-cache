@@ -1,0 +1,15 @@
+{
+    "files.exclude": {
+        "**/linux-6.15.6/tools/testing/**": true
+    },
+    "search.exclude": {
+        "**/linux-6.15.6/tools/**": true,
+        "**/linux-6.15.6/Documentation/**": true,
+        "**/*.o": true,
+        "**/*.ko": true,
+        "**/*.mod.c": true
+    },
+    "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": true,
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+    "C_Cpp.errorSquiggles": "enabled"
+}

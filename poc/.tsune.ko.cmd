@@ -1,0 +1,1 @@
+savedcmd_tsune.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T /home/tsuneki/dc/ctf/upsolve/cross-cache/linux-6.15.6/scripts/module.lds -o tsune.ko tsune.o tsune.mod.o .module-common.o
