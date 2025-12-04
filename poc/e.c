@@ -32,9 +32,9 @@ int main(void) {
     hl(fd);
 
     struct user_req req;
-    req.object_size = 128;
-    req.objs_per_slab = 32;
-    req.cpu_partial = 120;
+    req.object_size = 1024;
+    req.objs_per_slab = 8;
+    req.cpu_partial = 24;
     SYSCHK(ioctl(fd, IOCTL_CMD_POC, &req));
 }
 

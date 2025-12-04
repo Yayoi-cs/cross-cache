@@ -44,7 +44,7 @@ void ioctl_free(int fd, int i) {
 }
 
 int main(void) {
-    info("kmemcache-1024");
+    info("kmemcache-128");
 
     size_t size = 2*1024*1024;
     hl(size)

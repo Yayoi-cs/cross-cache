@@ -12,7 +12,7 @@
 
 #define DEVICE_NAME "tsune"
 #define IOCTL_CMD_POC 0x810
-#define MSG_SZ 128
+#define MSG_SZ 1024
 
 static struct kmem_cache *tsune_cache;
 
