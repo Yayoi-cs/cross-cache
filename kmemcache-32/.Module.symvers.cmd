@@ -1,0 +1,1 @@
+savedcmd_Module.symvers :=  /home/tsuneki/dc/ctf/upsolve/cross-cache/linux-6.15.6/scripts/mod/modpost -M          -o Module.symvers -T modules.order -i /home/tsuneki/dc/ctf/upsolve/cross-cache/linux-6.15.6/Module.symvers -e 

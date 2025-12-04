@@ -13,13 +13,15 @@
 #define IOCTL_CMD_FREE 0x811
 #define IOCTL_CMD_READ 0x812
 #define IOCTL_CMD_WRITE 0x813
-#define MSG_SZ 1024
+#define IOCTL_CMD_PAGE 0x814
+#define MSG_SZ 32
+
 struct user_req {
     int idx;
     char *userland_buf;
 };
 
-char *ptrs[1024];
+char *ptrs[32768];
 static struct kmem_cache *tsune_cache;
 
 static long tsune_ioctl(struct file *file, unsigned int cmd, unsigned long arg) {
@@ -27,13 +29,14 @@ static long tsune_ioctl(struct file *file, unsigned int cmd, unsigned long arg) 
     if (copy_from_user(&req, (void __user *)arg, sizeof(req))) {
         return -EFAULT;
     }
-    if (req.idx < 0 || req.idx >= 1024) {
+    if (req.idx < 0 || req.idx >= 32768) {
         return -EINVAL;
     }
 
     switch(cmd) {
         case IOCTL_CMD_ALLOC:
             ptrs[req.idx] = kmem_cache_alloc(tsune_cache, GFP_KERNEL);
+            printk("%x: %lx\n",req.idx,(unsigned long)ptrs[req.idx]);
             if (!ptrs[req.idx]) {
                 return -ENOMEM;
             }
@@ -57,6 +60,13 @@ static long tsune_ioctl(struct file *file, unsigned int cmd, unsigned long arg) 
                     return -EFAULT;
                 }
             }
+            break;
+        case IOCTL_CMD_PAGE:
+            if (ptrs[req.idx]) {
+                if (copy_to_user(req.userland_buf, (char *)((unsigned long)(ptrs[req.idx])&(~0xfff)), MSG_SZ)) {
+                    return -EFAULT;
+                }
+            }            
             break;
         default:
             return -EINVAL;

@@ -13,9 +13,9 @@
 
 /*
 ~ # cat  /sys/kernel/slab/tsune_cache/object_size 
-256
+512
 ~ # cat  /sys/kernel/slab/tsune_cache/objs_per_slab 
-16
+8
 ~ # cat  /sys/kernel/slab/tsune_cache/cpu_partial 
 52
 */
@@ -32,9 +32,9 @@ int main(void) {
     hl(fd);
 
     struct user_req req;
-    req.cpu_partial = 256;
-    req.objs_per_slab = 16;
-    req.object_size = 52;
+    req.object_size = 128;
+    req.objs_per_slab = 32;
+    req.cpu_partial = 120;
     SYSCHK(ioctl(fd, IOCTL_CMD_POC, &req));
 }
 

@@ -12,7 +12,7 @@
 
 #define DEVICE_NAME "tsune"
 #define IOCTL_CMD_POC 0x810
-#define MSG_SZ 256
+#define MSG_SZ 128
 
 static struct kmem_cache *tsune_cache;
 
@@ -35,6 +35,7 @@ static long tsune_ioctl(struct file *file, unsigned int cmd, unsigned long arg) 
         + (req.objs_per_slab - 1)
         + 1
         + (req.objs_per_slab + 1);
+    printk(KERN_INFO "tsune: total: %u\n",total);
     unsigned long *list = kmalloc(sizeof(unsigned long) * total, GFP_KERNEL);
     unsigned long *head = list;
     printk(KERN_INFO "tsune: 1. allocate (cpu_partial+1)*objs_per_slab\n");
@@ -66,10 +67,9 @@ static long tsune_ioctl(struct file *file, unsigned int cmd, unsigned long arg) 
     }
 
     printk(KERN_INFO "tsune: 7. free one object per page\n");
-    for (int i = 0; i < (req.cpu_partial + 1) * req.objs_per_slab; i += req.objs_per_slab) {
+    for (int i = 0; i < (req.cpu_partial+1) * req.objs_per_slab; i += req.objs_per_slab) {
         kmem_cache_free(tsune_cache, (void *)(head[i]));
     }
-
 
     printk(KERN_INFO "tsune: uaf object: %lx\n", *uaf_obj);
     unsigned long uaf_page = *uaf_obj & (~0xfff);
